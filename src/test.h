@@ -9,7 +9,11 @@ TEST_CASE("Emulator") {
 
   CommandLineParser parser{};
 
-  const auto result = parser.CommandExecuted("Test");
+  std::string result;
+  result = parser.CommandExecuted("STR");
+  REQUIRE(result == "STR#\n");
 
-  REQUIRE(result == "Test");
+  result = parser.CommandExecuted("PW=|50");
+  REQUIRE(result == "PW=#\n");
+
 }

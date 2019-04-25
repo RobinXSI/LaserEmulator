@@ -3,24 +3,41 @@
 
 #include <iostream>
 #include <string>
+#include <memory>
+#include <unordered_map>
+#include <vector>
+
+#include "command.h"
 
 namespace emu {
 class CommandLineParser {
 public:
+  CommandLineParser();
+  void Run(std::istream &in, std::ostream &out);
 
-  void Run(std::istream &in, std::ostream &out) {
-    std::string line{};
-    int counter{0};
+  // Execute command
+  std::string CommandExecuted(const std::string &input);
 
-    while (!in.eof()) {
-      std::getline(in, line);
-      out << line << "#" << CommandExecuted(line);
-    }
-  }
+private:
+  struct CommandAndParameters {
+    std::string command;
+    std::vector<std::string> parameters;
+  };
 
-  std::string CommandExecuted(const std::string &command) {
-    return command;
-  }
+  std::unordered_map<std::string, std::unique_ptr<Command>> registered_commands_;
+
+  // Splits input at the character "|" to get command and parameters
+  CommandAndParameters ConvertInputToCommand(const std::string &input) const;
+
+  // Searches the required command in the registered commands
+  Command *LookupCommand(const std::string &command) const;
+
+  // Registers a command by linking the string command with its implementation
+  void RegisterCommand(std::unique_ptr<Command> implementation);
+
+
+
+
 
 };
 }
