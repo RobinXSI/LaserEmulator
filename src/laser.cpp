@@ -18,10 +18,10 @@ void Laser::Stop() {
   is_emitting_ = false;
 }
 
-bool Laser::IsEmitting() {
+bool Laser::IsEmitting() const {
   return is_emitting_;
 }
-int Laser::Power() {
+int Laser::Power() const {
   if (!IsEmitting()) {
     return 0;
   } else {

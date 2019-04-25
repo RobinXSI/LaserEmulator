@@ -13,15 +13,25 @@ public:
   virtual std::string Execute(const std::vector<std::string> &parameters) = 0;
 
   const std::string name_;
-  Laser * const laser_;
+  Laser *const laser_;
 
 protected:
   std::string SuccessMessage() const {
-    return  name_ + "#\n";
+    return name_ + "#\n";
   }
 
   std::string ErrorMessage() const {
-    return  name_ + "!\n";
+    return name_ + "!\n";
+  }
+
+  std::string SuccessParameterMessage(const std::vector<std::string> &output_parameter) {
+    std::string output = name_;
+
+    for (const auto &parameter : output_parameter) {
+      output += "|" + parameter;
+    }
+
+    return output + "#\n";
   }
 };
 
@@ -56,7 +66,7 @@ class SetPowerCommand : public Command {
 public:
   SetPowerCommand(Laser *laser, const std::string &name) : Command(laser, name) {}
   std::string Execute(const std::vector<std::string> &parameters) override {
-    if (parameters.size() != 1) {
+    if (parameters.size()!=1) {
       return ErrorMessage();
     }
 
@@ -76,12 +86,12 @@ class QueryPowerCommand : public Command {
 public:
   QueryPowerCommand(Laser *laser, const std::string &name) : Command(laser, name) {}
   std::string Execute(const std::vector<std::string> &parameters) override {
-    return SuccessMessage();
+    const auto power = laser_->Power();
+
+    return SuccessParameterMessage({std::to_string(power)});
   }
 
 };
 }
-
-
 
 #endif //LASER_EMULATOR_SRC_COMMAND_H

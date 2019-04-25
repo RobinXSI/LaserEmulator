@@ -8,9 +8,9 @@ public:
 
   void Stop();
 
-  bool IsEmitting();
+  bool IsEmitting() const;
 
-  int Power();
+  int Power() const;
 
   void SetPower(int power);
 
