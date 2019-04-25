@@ -3,7 +3,7 @@ A command line interface to an emulated laser implemented using C++17.
 
 ## Project description
 The C++ library `laser_emulator` serves as base for the application by parsing commands and executing them on the laser.
-The class can be accessed using the command line interface `laser_emulator_exe` or by executing the tests in `laser_emulator_test`.
+The library can be accessed using the command line interface `laser_emulator_exe` or by executing the tests in `laser_emulator_test`.
 
 ## Building
 The project can be built using CMake version 3.13.
