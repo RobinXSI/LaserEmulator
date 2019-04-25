@@ -77,3 +77,28 @@ TEST_CASE("Unknown Command") {
   REQUIRE(result == "UK!\n");
 }
 
+TEST_CASE("Silly Mode") {
+  using namespace emu;
+  auto laser = std::make_unique<Laser>();
+  CommandLineParser parser(laser.get());
+  std::string result;
+
+  result = parser.CommandExecuted("STR");
+  REQUIRE(result == "STR#\n");
+
+  result = parser.CommandExecuted("ESM");
+  REQUIRE(result == "ESM#\n");
+
+  result = parser.CommandExecuted("05|=WP");
+  REQUIRE(result == "PW=#\n");
+
+  result = parser.CommandExecuted("DSM");
+  REQUIRE(result == "DSM#\n");
+
+  result = parser.CommandExecuted("05|=WP");
+  REQUIRE(result == "UK!\n");
+
+  result = parser.CommandExecuted("PW?");
+  REQUIRE(result == "PW?|50#\n");
+}
+

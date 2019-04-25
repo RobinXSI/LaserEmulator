@@ -8,6 +8,8 @@ CommandLineParser::CommandLineParser(Laser *laser) : laser_(laser) {
   RegisterCommand(std::make_unique<StopCommand>(laser_, "STP"));
   RegisterCommand(std::make_unique<SetPowerCommand>(laser_, "PW="));
   RegisterCommand(std::make_unique<QueryPowerCommand>(laser_, "PW?"));
+  RegisterCommand(std::make_unique<StartSillyModeCommand>(&silly_mode_activated_, laser_, "ESM"));
+  RegisterCommand(std::make_unique<StopSillyModeCommand>(&silly_mode_activated_, laser_, "MSD")); // Inversed
 }
 
 void CommandLineParser::Run(std::istream &in, std::ostream &out) {
@@ -41,7 +43,11 @@ void CommandLineParser::RegisterCommand(std::unique_ptr<Command> implementation)
   registered_commands_[implementation->name_] = std::move(implementation);
 }
 
-CommandLineParser::CommandAndParameters CommandLineParser::ConvertInputToCommand(const std::string &input) const {
+CommandLineParser::CommandAndParameters CommandLineParser::ConvertInputToCommand(std::string input) const {
+  if (silly_mode_activated_) {
+    input = std::string(input.rbegin(), input.rend());
+  }
+
   std::stringstream input_stream(input);
   std::string item;
   std::vector<std::string> splitted_strings;

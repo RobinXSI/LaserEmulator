@@ -29,13 +29,15 @@ private:
   Laser *laser_;
 
   // Splits input at the character "|" to get command and parameters
-  CommandAndParameters ConvertInputToCommand(const std::string &input) const;
+  CommandAndParameters ConvertInputToCommand(std::string input) const;
 
   // Searches the required command in the registered commands
   Command *LookupCommand(const std::string &command) const;
 
   // Registers a command by linking the string command with its implementation
   void RegisterCommand(std::unique_ptr<Command> implementation);
+
+  bool silly_mode_activated_ = false;
 
 
 

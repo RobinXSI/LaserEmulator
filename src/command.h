@@ -92,6 +92,35 @@ public:
   }
 
 };
+
+class StartSillyModeCommand : public Command {
+public:
+  explicit StartSillyModeCommand(bool *silly_mode_activated, Laser *laser, const std::string &name)
+      : Command(laser, name), silly_mode_activated_(silly_mode_activated) {}
+
+  std::string Execute(const std::vector<std::string> &parameters) override {
+    *silly_mode_activated_ = true;
+    return SuccessMessage();
+  }
+private:
+  bool *silly_mode_activated_;
+};
+
+class StopSillyModeCommand : public Command {
+public:
+  explicit StopSillyModeCommand(bool *silly_mode_activated, Laser *laser, const std::string &name)
+      : Command(laser, name), silly_mode_activated_(silly_mode_activated) {}
+
+  std::string Execute(const std::vector<std::string> &parameters) override {
+    *silly_mode_activated_ = false;
+    return "DSM#\n";
+  }
+
+
+private:
+  bool *silly_mode_activated_;
+};
+
 }
 
 #endif //LASER_EMULATOR_SRC_COMMAND_H
