@@ -18,6 +18,8 @@ make laser_emulator_exe
 make laser_emulator_test
 ```
 
+The build was tested under Ubuntu 18.04 with GCC 8.2 and on Windows 10 with Visual Studio 2019.
+
 ## Usage instructions
 Using the command line interace execute following commands in the interactive shell of `laser_emulator_exe`:
 ```
