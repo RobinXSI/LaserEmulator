@@ -8,11 +8,12 @@
 #include <vector>
 
 #include "command.h"
+#include "laser.h"
 
 namespace emu {
 class CommandLineParser {
 public:
-  CommandLineParser();
+  explicit CommandLineParser(Laser *laser);
   void Run(std::istream &in, std::ostream &out);
 
   // Execute command
@@ -25,6 +26,7 @@ private:
   };
 
   std::unordered_map<std::string, std::unique_ptr<Command>> registered_commands_;
+  Laser *laser_;
 
   // Splits input at the character "|" to get command and parameters
   CommandAndParameters ConvertInputToCommand(const std::string &input) const;

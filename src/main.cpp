@@ -2,12 +2,10 @@
 #include <signal.h>
 
 #include "command_line_parser.h"
-#include <iomanip>
-#include <sstream>
+#include "laser.h"
 
 void HandleExitEvent(int s) {
   exit(0);
-
 }
 
 int main() {
@@ -17,8 +15,10 @@ int main() {
   signal(SIGTERM, HandleExitEvent);
   signal(SIGINT, HandleExitEvent);
 
+  auto laser = std::make_unique<Laser>();
+
   // Start emulator
-  CommandLineParser().Run(std::cin, std::cout);
+  CommandLineParser(laser.get()).Run(std::cin, std::cout);
 
   return 0;
 }

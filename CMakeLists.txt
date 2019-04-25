@@ -3,7 +3,10 @@ project(laser_emulator)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_library(laser_emulator src/laser.cpp src/command_line_parser.cpp src/command.cpp)
+add_library(laser_emulator src/laser.cpp
+        src/command_line_parser.cpp
+        src/command.cpp
+        src/laser_exception.cpp)
 
 add_executable(laser_emulator_exe src/main.cpp)
 target_link_libraries(laser_emulator_exe laser_emulator)

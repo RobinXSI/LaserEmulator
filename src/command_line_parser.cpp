@@ -3,9 +3,11 @@
 
 namespace emu {
 
-CommandLineParser::CommandLineParser() {
-  RegisterCommand(std::make_unique<StartCommand>("STR"));
-  RegisterCommand(std::make_unique<SetPowerCommand>("PW="));
+CommandLineParser::CommandLineParser(Laser *laser) : laser_(laser) {
+  RegisterCommand(std::make_unique<StartCommand>(laser_, "STR"));
+  RegisterCommand(std::make_unique<StopCommand>(laser_, "STP"));
+  RegisterCommand(std::make_unique<SetPowerCommand>(laser_, "PW="));
+  RegisterCommand(std::make_unique<QueryPowerCommand>(laser_, "PW?"));
 }
 
 void CommandLineParser::Run(std::istream &in, std::ostream &out) {
