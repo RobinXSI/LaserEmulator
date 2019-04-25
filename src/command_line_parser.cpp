@@ -10,6 +10,9 @@ CommandLineParser::CommandLineParser(Laser *laser) : laser_(laser) {
   RegisterCommand(std::make_unique<QueryPowerCommand>(laser_, "PW?"));
   RegisterCommand(std::make_unique<StartSillyModeCommand>(&silly_mode_activated_, laser_, "ESM"));
   RegisterCommand(std::make_unique<StopSillyModeCommand>(&silly_mode_activated_, laser_, "MSD")); // Inversed
+  RegisterCommand(std::make_unique<KeepAliveCommand>(laser_, "KAL"));
+  RegisterCommand(std::make_unique<QueryStatusCommand>(laser_, "ST?"));
+
 }
 
 void CommandLineParser::Run(std::istream &in, std::ostream &out) {

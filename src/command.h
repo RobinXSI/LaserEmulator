@@ -121,6 +121,26 @@ private:
   bool *silly_mode_activated_;
 };
 
+class KeepAliveCommand : public Command {
+public:
+  explicit KeepAliveCommand(Laser *laser, const std::string &name) : Command(laser, name) {}
+
+  std::string Execute(const std::vector<std::string> &parameters) override {
+    laser_->KeepAliveSignal();
+    return SuccessMessage();
+  }
+};
+
+class QueryStatusCommand : public Command {
+public:
+  explicit QueryStatusCommand(Laser *laser, const std::string &name) : Command(laser, name) {}
+
+  std::string Execute(const std::vector<std::string> &parameters) override {
+    const auto is_emitting = laser_->IsEmitting();
+    return SuccessParameterMessage({std::to_string(is_emitting)});
+  }
+};
+
 }
 
 #endif //LASER_EMULATOR_SRC_COMMAND_H
