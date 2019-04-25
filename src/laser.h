@@ -4,11 +4,12 @@
 #include <chrono>
 
 namespace emu {
+/**
+ * Emulates a laser
+ */
 class Laser {
 public:
-  Laser(std::chrono::milliseconds keep_alive_time = std::chrono::milliseconds(5000))
-      : keep_alive_time_(keep_alive_time),
-        last_keep_alive_signal_(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch())) {};
+  Laser(std::chrono::milliseconds keep_alive_time = std::chrono::milliseconds(5000));;
 
   void Start();
 

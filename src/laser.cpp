@@ -3,6 +3,9 @@
 #include "laser_exception.h"
 
 namespace emu {
+Laser::Laser(std::chrono::milliseconds keep_alive_time)
+    : keep_alive_time_(keep_alive_time),
+      last_keep_alive_signal_(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch())) {}
 
 void Laser::Start() {
   if (IsEmitting()) {
@@ -51,5 +54,6 @@ void Laser::SetPower(int power) {
 void Laser::KeepAliveSignal() {
   last_keep_alive_signal_ = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
 }
+
 
 }

@@ -1,6 +1,15 @@
 #include <sstream>
 #include "command_line_parser.h"
 
+#include "start_command.h"
+#include "stop_command.h"
+#include "set_power_command.h"
+#include "query_power_command.h"
+#include "start_silly_mode_command.h"
+#include "stop_silly_mode_command.h"
+#include "keep_alive_command.h"
+#include "query_status_command.h"
+
 namespace emu {
 
 CommandLineParser::CommandLineParser(Laser *laser) : laser_(laser) {

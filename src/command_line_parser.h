@@ -11,6 +11,9 @@
 #include "laser.h"
 
 namespace emu {
+/**
+ * Creates a register of commands and executes them on input events in the terminal.
+ */
 class CommandLineParser {
 public:
   explicit CommandLineParser(Laser *laser);
@@ -38,11 +41,6 @@ private:
   void RegisterCommand(std::unique_ptr<Command> implementation);
 
   bool silly_mode_activated_ = false;
-
-
-
-
-
 };
 }
 

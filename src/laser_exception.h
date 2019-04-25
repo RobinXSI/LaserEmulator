@@ -7,11 +7,9 @@
 namespace emu {
 class LaserException : public std::exception {
 public:
-  explicit LaserException(const std::string &message) noexcept : message_(message) {};
+  explicit LaserException(const std::string &message) noexcept;;
 
-  const char *what() const noexcept override {
-    return message_.c_str();
-  }
+  const char *what() const noexcept override;
 
 private:
   const std::string message_;
